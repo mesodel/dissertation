@@ -1,0 +1,43 @@
+server:
+  port: 8083
+
+auth0:
+  audience: http://localhost:8080/db/
+
+spring:
+  application:
+    name: dwapp
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://dissertationuaa.eu.auth0.com/
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521/XEPDB1
+    username: prod_dw
+    password: pass
+  jpa:
+    show_sql: true
+    hibernate:
+      ddl-auto: create
+#    properties:
+#      javax:
+#        persistence:
+#          schema-generation:
+#            scripts:
+#              action: create
+#              create-target: create.sql
+#              create-source: metadata
+  cloud:
+    config:
+      import-check:
+        enabled: false
+
+eureka:
+  client:
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+    healthcheck:
+      enabled: true
+

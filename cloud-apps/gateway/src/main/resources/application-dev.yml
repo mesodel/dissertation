@@ -1,0 +1,54 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://dissertationuaa.eu.auth0.com/
+  cloud:
+    gateway:
+      routes:
+        - id: dbapp
+          uri: lb://dbapp
+          predicates:
+            - Path=/iot/**
+          filters:
+            - StripPrefix=1
+            - CircuitBreaker=dbapp
+        - id: mlapp
+          uri: lb://mlapp
+          predicates:
+            - Path=/nn/**
+          filters:
+            - StripPrefix=1
+            - CircuitBreaker=mlapp
+        - id: dwapp
+          uri: lb://dwapp
+          predicates:
+            - Path=/dw/**
+          filters:
+            - StripPrefix=1
+            - CircuitBreaker=dwapp
+        - id: frontend
+          uri: http://localhost:3000
+          predicates:
+            - Path=/**
+          filters:
+            - CircuitBreaker=frontend
+    config:
+      import-check:
+        enabled: false
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    healthcheck:
+      enabled: true

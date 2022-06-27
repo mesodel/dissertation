@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: dwapp
+  config:
+    import: configserver:https://configserver:8800

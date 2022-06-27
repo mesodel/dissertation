@@ -1,0 +1,8 @@
+{
+    "pairCode": "123",
+    "type": "VERSION_1",
+    "sensors": [
+        {"name": "temperature"},
+        {"name": "humidity"}
+    ]
+}

@@ -1,0 +1,80 @@
+version: '3.9'
+services:
+  zipkin:
+    image: openzipkin/zipkin
+    networks:
+      - iot-net
+    ports:
+      - "9411:9411"
+  configserver:
+    image: configserver
+    networks:
+      - iot-net
+  registry:
+    image: registry
+    restart: unless-stopped
+    networks:
+      - iot-net
+    depends_on:
+      - configserver
+    ports:
+      - "8761:8761"
+  nextapp:
+    image: smarthome-fe
+    networks:
+      - iot-net
+  mlapp:
+    image: mlapp
+    restart: unless-stopped
+    networks:
+      - iot-net
+    depends_on:
+      - registry
+      - configserver
+    ports:
+      - "5007:5007"
+  nnapp:
+    image: nnapp
+    restart: unless-stopped
+    networks:
+      - iot-net
+    environment:
+      PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION: python
+      FLASK_APP: app.py
+  dbapp:
+    image: dbapp
+    restart: unless-stopped
+    networks:
+      - iot-net
+    depends_on:
+      - registry
+      - configserver
+    ports:
+      - "5005:5005"
+  dwapp:
+    image: dwapp
+    restart: unless-stopped
+    networks:
+      - iot-net
+    depends_on:
+      - registry
+      - configserver
+    ports:
+      - "5006:5006"
+  gateway:
+    image: gateway
+    restart: unless-stopped
+    networks:
+      - iot-net
+    depends_on:
+      - registry
+      - configserver
+      - zipkin
+      - nextapp
+      - dbapp
+    ports:
+      - "8080:8080"
+networks:
+  iot-net:
+volumes:
+  appvol:

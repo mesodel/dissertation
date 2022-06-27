@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          default-label: main
+          uri: https://github.com/mesodel/spring-configs.git
+          username: mesodel
+          password: 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
+
+server:
+  port: 8800
+  ssl:
+    enabled: true
+    key-alias: configserver
+    key-store-password: pass
+    key-store: classpath:server.p12
+    key-store-type: PKCS12

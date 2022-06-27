@@ -1,0 +1,6 @@
+{
+    "url": "https://dissertationuaa.eu.auth0.com/oauth/token",
+    "clientId": "pJjEKCC2vHTg71dhTVfuxXC18y62Sn38",
+    "clientSecret": "IEQycMYsOT7_6YhrFolw1JIi9ydA7JGHnqkPYDERu8kAdS6dCBsrRnYmN6otBwW9",
+    "audience": "http://localhost:8080/db/"
+}

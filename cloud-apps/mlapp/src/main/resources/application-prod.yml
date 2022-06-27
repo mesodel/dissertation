@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: mlapp
+  config:
+    import: configserver:https://configserver:8800
