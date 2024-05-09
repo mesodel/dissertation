@@ -12,7 +12,7 @@ public interface RecordRepository extends PagingAndSortingRepository<Record, Lon
             "row_number() over (partition by to_char(r.record_date, 'HH24') order by record_date desc) rn\n" +
             "from record r\n" +
             "where sensor_id = ?1\n" +
-            "order by rn asc\n" +
-            "fetch first 24 rows only;", nativeQuery = true)
+            "order by rn asc, record_date desc\n" +
+            "fetch first 24 rows only", nativeQuery = true)
     List<Record> retrieveInputData(long sensorId);
 }

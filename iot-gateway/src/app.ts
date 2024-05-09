@@ -133,6 +133,10 @@ const client = mqtt.connect({
 });
 
 client.on("connect", async () => {
+  if (machineDescriptor) {
+    return;
+  }
+
   log.info(
     tag,
     `Connection to broker ${credentials.broker}:${credentials.port} has been established successfully`

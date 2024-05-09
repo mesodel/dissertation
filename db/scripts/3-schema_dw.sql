@@ -42,7 +42,8 @@ inner join PROD.city c on c.id = h.city_id
 inner join PROD.country country on country.id = c.country_id
 inner join PROD_DW.address address on address.city = c.name and address.country = country.name
 inner join PROD_DW.home home on home.home_name = h.name and home.room_name = r.name
-inner join PROD_DW.sensor sensor on sensor.id = s.id;
+inner join PROD_DW.sensor sensor on sensor.id = s.id
+where record_date not in (select record_date from record);
 
 END MIGRATE_DATA;
 /

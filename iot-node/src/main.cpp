@@ -7,13 +7,13 @@
 #include <map>
 #include <vector>
 
-static constexpr auto *ssid = "WiFi-2.4";
-static constexpr auto *pass = "180898Delia!";
+static constexpr auto *ssid = "delia";
+static constexpr auto *pass = "Pass1234!";
 
 static const std::vector<String>      capabilities{"temperature", "humidity"};
 static const std::map<String, String> origins{{"temperature", "temperature"},
                                               {"humidity", "humidity"}};
-static constexpr auto                *broker       = "192.168.0.165";
+static constexpr auto                *broker       = "172.20.10.9";
 static constexpr auto                *topic        = "data";
 static constexpr auto                 DHT_PIN      = 5;
 static constexpr auto                 DHT_TYPE     = DHT11;
@@ -25,9 +25,9 @@ static PubSubClient mqttClient(wifiClient);
 
 static DHT dht(DHT_PIN, DHT_TYPE);
 
-static IPAddress localIP(192, 168, 0, 184);
-static IPAddress gateway(192, 168, 0, 2);
-static IPAddress subnet(255, 255, 255, 0);
+static IPAddress localIP(172, 20, 10, 10);
+static IPAddress gateway(172, 20, 10, 1);
+static IPAddress subnet(255, 255, 255, 240);
 
 static void connectWifi()
 {
